@@ -1,0 +1,52 @@
+hash: 53b8de95938ce237489b56f8c2710a9f849ce8d1320275c8c4dea124134d48d2
+updated: 2019-04-01T23:32:59.5071975+03:00
+imports:
+- name: cloud.google.com/go
+  version: 914ec4c1e2b7fdfddf146016ffc3fc69f4f2309e
+  subpackages:
+  - civil
+- name: github.com/datatogether/warc
+  version: 955ff5e56e7f4a5baf370674b925aa3accab2de3
+- name: github.com/davecgh/go-spew
+  version: 8991bc29aa16c548c550c7ff78260e27b9ab7c73
+  subpackages:
+  - spew
+- name: github.com/denisenkom/go-mssqldb
+  version: ce35bd87d4b36ab12eb9da72e0a80eb6325e2a99
+  subpackages:
+  - internal/cp
+- name: github.com/go-sql-driver/mysql
+  version: c0f6b444ad8f92ecd68f86b27635c1fccdede4c4
+- name: github.com/google/uuid
+  version: 0cd6bf5da1e1c83f8b45653022c74f71af0538a4
+- name: github.com/jinzhu/gorm
+  version: 8b07437717e71c2ff00602ae19f8353ba10aafbb
+  subpackages:
+  - dialects/mssql
+  - dialects/mysql
+  - dialects/postgres
+  - dialects/sqlite
+- name: github.com/jinzhu/inflection
+  version: 04140366298a54a039076d798123ffa108fff46c
+- name: github.com/lib/pq
+  version: d6156e141ac6c06345c7c73f450987a9ed4b751f
+  subpackages:
+  - hstore
+  - oid
+- name: github.com/mattn/go-sqlite3
+  version: 31f5bb843b7852e28d5a66d1d539c042c3bb623a
+- name: github.com/pborman/uuid
+  version: 8b1b92947f46224e3b97bb1a3a5b0382be00d31e
+- name: github.com/pkg/errors
+  version: 27936f6d90f9c8e1145f11ed52ffffbfdb9e0af7
+- name: github.com/urfave/cli
+  version: cfb38830724cc34fedffe9a2a29fb54fa9169cd1
+- name: golang.org/x/crypto
+  version: a5d413f7728c81fb97d96a2b722368945f651e78
+  subpackages:
+  - md4
+- name: google.golang.org/appengine
+  version: 54a98f90d1c46b7731eb8fb305d2a321c30ef610
+  subpackages:
+  - cloudsql
+testImports: []
