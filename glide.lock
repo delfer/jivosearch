@@ -1,5 +1,5 @@
 hash: 53b8de95938ce237489b56f8c2710a9f849ce8d1320275c8c4dea124134d48d2
-updated: 2019-04-01T23:32:59.5071975+03:00
+updated: 2019-04-07T02:25:56.5324419+03:00
 imports:
 - name: cloud.google.com/go
   version: 914ec4c1e2b7fdfddf146016ffc3fc69f4f2309e
@@ -25,7 +25,6 @@ imports:
   - dialects/mssql
   - dialects/mysql
   - dialects/postgres
-  - dialects/sqlite
 - name: github.com/jinzhu/inflection
   version: 04140366298a54a039076d798123ffa108fff46c
 - name: github.com/lib/pq
@@ -33,8 +32,6 @@ imports:
   subpackages:
   - hstore
   - oid
-- name: github.com/mattn/go-sqlite3
-  version: 31f5bb843b7852e28d5a66d1d539c042c3bb623a
 - name: github.com/pborman/uuid
   version: 8b1b92947f46224e3b97bb1a3a5b0382be00d31e
 - name: github.com/pkg/errors
