@@ -1,5 +1,5 @@
 hash: 53b8de95938ce237489b56f8c2710a9f849ce8d1320275c8c4dea124134d48d2
-updated: 2019-04-07T02:25:56.5324419+03:00
+updated: 2019-04-07T10:27:22.3107297+03:00
 imports:
 - name: cloud.google.com/go
   version: 914ec4c1e2b7fdfddf146016ffc3fc69f4f2309e
@@ -27,6 +27,13 @@ imports:
   - dialects/postgres
 - name: github.com/jinzhu/inflection
   version: 04140366298a54a039076d798123ffa108fff46c
+- name: github.com/kamilsk/breaker
+  version: 78a264e5496196d43147c46c78585f9aae48f96a
+- name: github.com/kamilsk/retry
+  version: 20951ae6e96133919f2dd1965fa1a93492411d1c
+  subpackages:
+  - backoff
+  - strategy
 - name: github.com/lib/pq
   version: d6156e141ac6c06345c7c73f450987a9ed4b751f
   subpackages:
