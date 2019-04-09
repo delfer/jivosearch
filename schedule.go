@@ -22,13 +22,6 @@ import (
 	"github.com/urfave/cli"
 )
 
-type Task struct {
-	URL        string `gorm:"PRIMARY_KEY;UNIQUE_INDEX"`
-	WorkerName string
-	Started    *time.Time
-	Completed  *time.Time
-}
-
 func schedule(c *cli.Context) error {
 
 	db, err := gorm.Open(c.GlobalString("dialect"), c.GlobalString("db-connection"))
