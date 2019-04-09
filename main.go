@@ -8,6 +8,7 @@ import (
 )
 
 func main() {
+  log.SetFlags(log.LstdFlags)
 
 	app := cli.NewApp()
 
@@ -23,6 +24,12 @@ func main() {
 			Value:  "host=localhost port=5432 user=admin dbname=gorm password=mypassword sslmode=disable",
 			Usage:  "connection parameters",
 			EnvVar: "DB_CONNECTION",
+		},
+		cli.StringFlag{
+			Name:   "threads",
+			Value:  "4",
+			Usage:  "parralel threads of each goroutine",
+			EnvVar: "NUM_THREADS",
 		},
 	}
 
