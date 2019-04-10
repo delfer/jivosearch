@@ -43,8 +43,13 @@ func parse(c *cli.Context) error {
 	for i := 0; i < numThreads; i++ {
 		go pageParser(anySiteCh, tgtSiteCh)
 		go widgetParser(tgtSiteCh, outSiteCh)
+		go dbWriter(outSiteCh, db, c.String("name"))
 	}
-	go dbWriter(outSiteCh, db, c.String("name"))
+
+	// Configure DB pool size
+	db.DB().SetMaxIdleConns(numThreads)
+	db.DB().SetMaxOpenConns(numThreads)
+	db.DB().SetConnMaxLifetime(0)
 
 	// Main loop over WARC files
 	for {
@@ -92,10 +97,17 @@ func parse(c *cli.Context) error {
 		log.Println("Read started")
 
 		// Read records
-		for i := 0; ; i++ {
+		for {
 			rec, err := rdr.Read()
-			if err == io.EOF {
-				break
+			if err != nil {
+				if err == io.EOF {
+					break
+				} else {
+					task.Started = nil
+					task.WorkerName = ""
+					dbUpdateCh <- &task
+					continue
+				}
 			}
 			if rec.Type == warc.RecordTypeResponse {
 				body, _ := rec.Body()
@@ -103,8 +115,10 @@ func parse(c *cli.Context) error {
 			}
 		}
 
-		now = time.Now()
-		task.Completed = &now
+		log.Println("Ch Tasks: " + strconv.Itoa(len(dbUpdateCh)) + ", Sites: " + strconv.Itoa(len(anySiteCh)) + ", Target:" + strconv.Itoa(len(tgtSiteCh)) + ", Output: " + strconv.Itoa(len(outSiteCh)))
+
+		now2 := time.Now()
+		task.Completed = &now2
 		dbUpdateCh <- &task
 	}
 }
@@ -139,10 +153,18 @@ func pageParser(in <-chan *AnySite, out chan<- *TargetSite) {
 
 func widgetParser(in <-chan *TargetSite, out chan<- *TargetSite) {
 	r, _ := regexp.Compile(`widget_id\s*=\s*['"](\w+)['"]`)
+	r2, _ := regexp.Compile(`code.jivosite.com/script/widget/(\w+)`)
 	for {
 		site := <-in
 		widgetIDMatches := r.FindStringSubmatch(site.Body)
-		site.WidgetID = widgetIDMatches[1]
+		if len(widgetIDMatches) > 0 {
+			site.WidgetID = widgetIDMatches[1]
+		} else {
+			widgetIDMatches = r2.FindStringSubmatch(site.Body)
+			if len(widgetIDMatches) > 0 {
+				site.WidgetID = widgetIDMatches[1]
+			}
+		}
 		u, err := url.Parse(site.URL)
 		if err == nil {
 			site.URL = u.Scheme + "://" + u.Host
@@ -152,10 +174,8 @@ func widgetParser(in <-chan *TargetSite, out chan<- *TargetSite) {
 }
 
 func dbWriter(in <-chan *TargetSite, db *gorm.DB, workerName string) {
-	i := 0
 	for {
 		site := <-in
-		i++
 		// Retry
 		action := func(uint) error {
 			now := time.Now()
@@ -166,17 +186,23 @@ func dbWriter(in <-chan *TargetSite, db *gorm.DB, workerName string) {
 				Found:      &now,
 				SourceWarc: site.SourceWarc,
 			}
-			res := db.FirstOrCreate(&JivoSite{URL: site.URL}, &out)
+
+			// Update widget_id if present
+			var res *gorm.DB
+			if len(site.WidgetID) > 0 {
+				res = db.Where(JivoSite{URL: site.URL}).Assign(JivoSite{WidgetID: site.WidgetID}).FirstOrCreate(&out)
+			} else {
+				res = db.Where(JivoSite{URL: site.URL}).FirstOrCreate(&out)
+			}
+
 			if res.Error != nil {
 				log.Println(res.Error)
 			}
+
 			return res.Error
 		}
 		if err := retry.Retry(breaker.BreakByTimeout(5*time.Minute), action, strategy.Backoff(backoff.Exponential(time.Second, 1.2))); err != nil {
 			panic(err)
-		}
-		if i%100 == 0 {
-			log.Println("Written " + strconv.Itoa(i))
 		}
 	}
 }
