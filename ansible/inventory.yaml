@@ -1,0 +1,28 @@
+all:
+  hosts:
+    ec2-3-81-150-22.compute-1.amazonaws.com:
+    ec2-3-84-217-114.compute-1.amazonaws.com:
+    ec2-3-87-126-19.compute-1.amazonaws.com:
+    ec2-3-88-17-49.compute-1.amazonaws.com:
+    ec2-3-89-72-35.compute-1.amazonaws.com:
+    ec2-3-92-63-131.compute-1.amazonaws.com:
+    ec2-18-232-165-125.compute-1.amazonaws.com:
+    ec2-34-227-82-21.compute-1.amazonaws.com:
+    ec2-34-230-34-81.compute-1.amazonaws.com:
+    ec2-35-173-182-66.compute-1.amazonaws.com:
+    ec2-52-71-204-173.compute-1.amazonaws.com:
+    ec2-54-81-251-6.compute-1.amazonaws.com:
+    ec2-54-85-162-218.compute-1.amazonaws.com:
+    ec2-54-86-212-149.compute-1.amazonaws.com:
+    ec2-54-88-204-50.compute-1.amazonaws.com:
+    ec2-54-173-158-193.compute-1.amazonaws.com:
+    ec2-54-198-68-17.compute-1.amazonaws.com:
+    ec2-54-210-151-167.compute-1.amazonaws.com:
+    ec2-54-234-4-132.compute-1.amazonaws.com:
+    ec2-107-23-204-21.compute-1.amazonaws.com:
+
+  vars:
+    ansible_user: ubuntu
+    become_user: root
+    ansible_ssh_private_key_file: ~/.ssh/aws-us-east-1.pem
+    ansible_ssh_common_args: '-o StrictHostKeyChecking=no'

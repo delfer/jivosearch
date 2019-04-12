@@ -1,0 +1,31 @@
+# Ubuntu ami-07cf168379768892d
+---
+- hosts: all
+  strategy: free
+  become: true
+  gather_facts: false
+  
+  pre_tasks:
+  - name: Install python2 for Ansible
+    raw: bash -c "test -e /usr/bin/python || (apt -qqy update && apt install -qqy python-minimal)"
+    register: output
+    changed_when: output.stdout != ""
+  - name: Gathering Facts
+    setup:
+  
+  tasks:
+  - name: Download jivosearch-amd64
+    get_url:
+      url: https://delfer.ams3.digitaloceanspaces.com/jivosearch/jivosearch-amd64
+      dest: /bin/jivosearch
+      mode: 0555
+  - name: Copy service file
+    template:
+      src: jivosearch.service.j2
+      dest: /lib/systemd/system/jivosearch.service
+  - name: Enable and start service
+    systemd:
+      name: jivosearch
+      daemon_reload: yes
+      enabled: yes
+      state: started
