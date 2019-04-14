@@ -1,0 +1,12 @@
+[Unit]
+Description=jivosearch
+After=network.target
+
+[Service]
+ExecStart=/bin/jivosearch --threads 4 parse --name ansible
+Environment="DB_CONNECTION=host=delfer.ru port=26347 user=admin dbname=js password={{ DB_PASS }} sslmode=disable"
+Type=simple
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

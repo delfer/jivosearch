@@ -11,3 +11,14 @@
 
 ## Build for Linux ARMv6 (Rasbberry Pi 1) 
 `CGO_ENABLED=0 GOOS=linux GOARCH=arm GOARM=6 go build -a -tags netgo -ldflags '-w' -o jivosearch-arm6 ./`
+
+## Ansible
+Take host list from browser:
+```
+cat aws.json | jq -cr '.instances[].dnsName'
+```
+Start fleet:
+```
+cd ansible
+ansible-playbook -i inventory.yaml -f 20 -e 'DB_PASS=XXXXXXXX' play.yaml
+```
