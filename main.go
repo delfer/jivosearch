@@ -66,6 +66,19 @@ func main() {
 				},
 			},
 		},
+		{
+			Name:   "rate",
+			Usage:  "set yandex cyc using Open-ocr server",
+			Action: rate,
+			Flags: []cli.Flag{
+				cli.StringFlag{
+					Name:   "ocr-server",
+					Value:  "http://10.236.200.136:9292",
+					Usage:  "Open-ocr server REST enpoint",
+					EnvVar: "OCR_SERVER",
+				},
+			},
+		},
 	}
 
 	err := app.Run(os.Args)

@@ -7,3 +7,4 @@ import:
   - spew
 - package: github.com/urfave/cli
   version: ~1.20.0
+- package: github.com/tleyden/open-ocr-client
