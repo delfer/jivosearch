@@ -100,14 +100,13 @@ func parse(c *cli.Context) error {
 		for {
 			rec, err := rdr.Read()
 			if err != nil {
-				if err == io.EOF {
-					break
-				} else {
+				if err != io.EOF {
+					log.Println(err)
 					task.Started = nil
 					task.WorkerName = ""
 					dbUpdateCh <- &task
-					continue
 				}
+				break
 			}
 			if rec.Type == warc.RecordTypeResponse {
 				body, _ := rec.Body()
