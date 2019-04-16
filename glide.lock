@@ -1,5 +1,5 @@
-hash: abc2208f436ddca39cfbc0ca62c4f295db96edc797fc7d39832b3beb7764d2ec
-updated: 2019-04-11T22:13:26.0731647+03:00
+hash: 7e3936ae5d486a3a90894a5509644f3173eef0fe5640a7a663e4542f123ed0bd
+updated: 2019-04-15T19:35:19.631709+03:00
 imports:
 - name: cloud.google.com/go
   version: 914ec4c1e2b7fdfddf146016ffc3fc69f4f2309e
@@ -45,6 +45,8 @@ imports:
   version: 8b1b92947f46224e3b97bb1a3a5b0382be00d31e
 - name: github.com/pkg/errors
   version: 27936f6d90f9c8e1145f11ed52ffffbfdb9e0af7
+- name: github.com/tevino/abool
+  version: 9b9efcf221b50905aab9bbabd3daed56dc10f339
 - name: github.com/tleyden/open-ocr-client
   version: b0e82eef193817cdaa910caf2662e4dccff4f365
 - name: github.com/urfave/cli

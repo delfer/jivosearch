@@ -79,6 +79,11 @@ func main() {
 				},
 			},
 		},
+		{
+			Name:   "alexa",
+			Usage:  "set Alexa page rating",
+			Action: alexa,
+		},
 	}
 
 	err := app.Run(os.Args)

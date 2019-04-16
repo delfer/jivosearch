@@ -25,12 +25,14 @@ type TargetSite struct {
 }
 
 type JivoSite struct {
-	URL        string `gorm:"PRIMARY_KEY;UNIQUE_INDEX"`
-	Checked    bool
-	WidgetID   string
-	CYC        int
-	Comment    string
-	Found      *time.Time
-	WorkerName string
-	SourceWarc string
+	URL             string `gorm:"PRIMARY_KEY;UNIQUE_INDEX"`
+	Checked         bool
+	WidgetID        string
+	CYC             int
+	AlexaPopularity int
+	AlexaRank       int
+	Comment         string
+	Found           *time.Time
+	WorkerName      string
+	SourceWarc      string
 }
